@@ -7,7 +7,8 @@ namespace EnumerationApi
     {
         public List<EnumerationDto> GetCats()
         {
-            return GetEnumerations<Cat>();
+            //return GetEnumerations<Cat>();
+            return Enumeration.GetAllList(EnumerationDto<Cat>.Projection);
         }
 
         public List<EnumerationDto> GetColors()

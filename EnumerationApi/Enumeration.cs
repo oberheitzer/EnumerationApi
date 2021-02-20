@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace EnumerationApi
@@ -20,5 +22,13 @@ namespace EnumerationApi
                                 BindingFlags.DeclaredOnly)
                      .Select(f => f.GetValue(null))
                      .Cast<T>();
+
+        public static List<TResult> GetAllList<TEnumeration, TResult>(Expression<Func<TEnumeration, TResult>> selector) 
+            where TEnumeration : Enumeration 
+            where TResult : EnumerationDto
+        {
+            var query = GetAll<TEnumeration>().AsQueryable();
+            return query.Select(selector).ToList();
+        }
     }
 }
